@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 
 // Suggested initial states
 const initialMessage = "";
@@ -7,7 +6,7 @@ const initialEmail = "";
 const initialSteps = 0;
 const initialIndex = 4; // the index the "B" is at
 
-export default function App(props) {
+export default function AppFunctional(props) {
   const [message, setMessage] = useState(initialMessage);
   const [email, setEmail] = useState(initialEmail);
   const [steps, setSteps] = useState(initialSteps);
@@ -83,27 +82,10 @@ export default function App(props) {
     setEmail(evt.target.value);
   }
 
-  async function formSubmit(evt) {
+  function formSubmit(evt) {
     evt.preventDefault();
-    setMessage("");
-    await axios
-      .post("http://localhost:9000/api/result", {
-        x: coordinates.x,
-        y: coordinates.y,
-        steps,
-        email,
-      })
-      .then((res) => {
-        setMessage(res.data.message);
-        setEmail(initialEmail);
-      })
-      .catch((err) => {
-        if (err.response && err.response.data && err.response.data.message) {
-          setMessage(`${err.response.data.message}`);
-        } else {
-          setMessage("Ouch: an error occured. Please try again.");
-        }
-      });
+    setMessage("Thanks for coming!");
+    setEmail(initialEmail);
   }
 
   return (
